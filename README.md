@@ -1,10 +1,10 @@
 # CSV-to-Spotify-Playlist
 
-##Purpose
+## Purpose
 
 Converts the uri_only file from [Spotify-JSON-to-CSV](https://github.com/EvanFarris/Spotify-JSON-to-CSV) into a spotify playlist that gets added to a user's account.
 
-##Requirements
+## Requirements
 
 This project is run on Ubuntu 22.04.
 
@@ -35,7 +35,7 @@ PORT=2345
 
 The first two lines above are the application id and secret given from Spotify. Line three is the landing page that redirects the user to Spotify's OAuth page, while line 4 is the callback for that. Line 5 is the port that the webserver will be listening on.
 
-##Usage
+## Usage
 
 **Currently, this a proof of concept project, rather than an actual functional, user-friendly program**
 Start the program
@@ -48,32 +48,32 @@ Start the program
 4. The user waits until the webpage updates with either a success or failure message.
 5. Check spotify to see if the song was created.
 
-##Pitfalls
+## Pitfalls
 
 It's barebones at the moment. 
 - Requires manual placement of the uri file into the folder, meaning only one playlist can be added at a time.
 - No pretty web page currently, as I think I would need to learn how to associate a user with a request, unless I think of a workaround.
 
-##Future plans
+## Future plans
 - Integrate this project with [Spotify-JSON-to-CSV](https://github.com/EvanFarris/Spotify-JSON-to-CSV) and create a useful service
 
-##Nginx setup
+## Nginx setup
 1. Install nginx
 2. Configure /etc/nginx/sites-available/default to listen on ssl, install the ssl certificate, and setup the reverse proxy
 ```
 server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
-	server_name __DOMAIN_NAME__;
+	server_name DOMAIN_NAME;
 	ssl_certificate /etc/letsencrypt/live/certificate-folder/fullchain.pem;
 	ssl_certificate /etc/letsencrypt/live/certificate-folder/privkey.pem;
 	location /spotify {
-		proxy_pass http://127.0.0.1:__PORT_NUMBER__/;
+		proxy_pass http://127.0.0.1:PORT_NUMBER/;
 	}
 }
 ```
 
-Where PORT_NUMBER is the port you set in .env, and __DOMAIN_NAME__ is the host domain (ex: teggle.dev)
+Where __PORT_NUMBER__ is the port you set in .env, and __DOMAIN_NAME__ is the host domain (ex: teggle.dev)
 
 3. Restart Nginx
 ```
